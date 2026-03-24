@@ -1,6 +1,7 @@
 from langgraph.graph import StateGraph, MessagesState, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
 from agents.faq_agent import faq_node, tools
+from config.memory import checkpointer, store
 
 workflow = StateGraph(MessagesState)
 
@@ -21,4 +22,4 @@ workflow.add_conditional_edges(
 workflow.add_edge("tools", "faq")
 
 # Compile the graph
-faq_graph = workflow.compile()
+faq_graph = workflow.compile(checkpointer=checkpointer, store=store)
