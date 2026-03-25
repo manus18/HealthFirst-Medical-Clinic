@@ -23,7 +23,7 @@ def create_confirmation_node(gmail_tools):
     """
     llm_with_tools = llm.bind_tools(gmail_tools)
 
-    def confirmation_node(state: MessagesState):
+    def confirmation_node(state: AgentState):
         messages = [{"role": "system", "content": SYSTEM_PROMPT}] + state["messages"]
         response = llm_with_tools.invoke(messages)
         return {"messages": [response]}

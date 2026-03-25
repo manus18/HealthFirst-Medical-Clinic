@@ -11,10 +11,10 @@ class BookingDetails(TypedDict, total=False):
     reason: Optional[str]    
     patient_email: Optional[str]
 
-    class AgentState(TypedDict):
-        booking_details: Optional[BookingDetails]
-        messages: Annotated[list[BaseMessage], add_messages]
-        next_agent: Optional[str]
-        booking_complete: bool
-        confirmation_sent: bool
+class AgentState(TypedDict):
+    booking_details: Optional[BookingDetails]
+    messages: Annotated[list[BaseMessage], add_messages]
+    next_agent: Optional[str]
+    booking_complete: bool
+    confirmation_sent: bool
 

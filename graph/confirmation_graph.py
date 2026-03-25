@@ -1,6 +1,7 @@
-from langgraph.graph import StateGraph, MessagesState, START
+from langgraph.graph import StateGraph, START
 from langgraph.prebuilt import ToolNode, tools_condition
 from agents.confirmation_agent import create_confirmation_node
+from agents.state import AgentState
 from tools.mcp_tools import get_mcp_client, get_gmail_tools
 
 
@@ -14,7 +15,7 @@ async def build_confirmation_graph():
 
     confirmation_node, tools = create_confirmation_node(gmail_tools)
 
-    builder = StateGraph(MessagesState)
+    builder = StateGraph(AgentState)
     builder.add_node("confirmation_agent", confirmation_node)
     builder.add_node("tools", ToolNode(tools))
 

@@ -17,21 +17,23 @@ Rules:
 
 
 class RouteDecision(BaseModel):
-    next_agent: str=Field(
+    next_agent: str = Field(
         description="The next agent to handle the conversation."
         "Must be one of: faq_agent, booking_agent, 'FINISH'"
     )
 
-    reasoning:str=Field(
-            description="The reasoning behind the routing decision. Be concise but informative."
-        )
-    router_llm=llm.with_structured_output(RouteDecision)
-    def supervisor_node(state: AgentState):
-            messages = [{"role": "system", "content": SYSTEM_PROMPT}] + state["messages"]
-            if state.get("booking_complete") ==False and state.get("booking details"):
-                  #If booking is in progress, route to booking_agent
-                  messages.append({"role": "system", "content": "Note: Booking is in progress based on the current state. Route to booking_agent to continue collecting details and finilize the booking or end the conversation."})
+    reasoning: str = Field(
+        description="The reasoning behind the routing decision. Be concise but informative."
+    )
 
-                  decision = router_llm.invoke(messages)
-                  return {"next_agent": decision.next_agent}
+router_llm = llm.with_structured_output(RouteDecision)
+
+def supervisor_node(state: AgentState):
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}] + state["messages"]
+    if state.get("booking_complete") == False and state.get("booking_details"):
+        # If booking is in progress, route to booking_agent
+        messages.append({"role": "system", "content": "Note: Booking is in progress based on the current state. Route to booking_agent to continue collecting details and finilize the booking or end the conversation."})
+
+    decision = router_llm.invoke(messages)
+    return {"next_agent": decision.next_agent}
             

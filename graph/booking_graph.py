@@ -1,9 +1,10 @@
 """
 Booking Graph - Wires the booking agent node into a LangGraph StateGraph
 """
-from langgraph.graph import StateGraph, MessagesState, START
+from langgraph.graph import StateGraph, START
 from langgraph.prebuilt import ToolNode, tools_condition
-from agents.booking_agent import create_booking_agent
+from agents.booking_agent import create_booking_node
+from agents.state import AgentState
 from tools.mcp_tools import get_mcp_client, get_calendar_tools
 from config.memory import checkpointer, store
 
@@ -16,9 +17,9 @@ async def build_booking_graph():
     if not calendar_tools:
         raise RuntimeError("No calendar tools found. Is Composio MCP server running?")
 
-    booking_node, tools = create_booking_agent(calendar_tools)
+    booking_node, tools = create_booking_node(calendar_tools)
 
-    builder = StateGraph(MessagesState)
+    builder = StateGraph(AgentState)
     builder.add_node("booking_agent", booking_node)
     builder.add_node("tools", ToolNode(tools))
 
@@ -26,6 +27,6 @@ async def build_booking_graph():
     builder.add_conditional_edges("booking_agent", tools_condition)
     builder.add_edge("tools", "booking_agent")
 
-    return builder.compile(checkpointer=checkpointer,store=store), client
+    return builder.compile(checkpointer=checkpointer, store=store), client
 
    

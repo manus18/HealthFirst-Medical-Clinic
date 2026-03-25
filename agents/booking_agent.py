@@ -26,13 +26,13 @@ Appointment duration is 30 minutes by default unless the patient specifies other
 Confirm the final booking details with the patient before creating the event.
 Be friendly and professional."""
 
-def create_booking_agent(calendar_tools):
+def create_booking_node(calendar_tools):
     """
     Create a booking agent with calendar tools
     """
     llm_with_tools = llm.bind_tools(calendar_tools)
 
-    def booking_agent(state: MessagesState):
+    def booking_agent(state: AgentState):
         messages = [{"role": "system", "content": SYSTEM_PROMPT}] + state["messages"]
         response = llm_with_tools.invoke(messages)
         return {"messages": [response]}

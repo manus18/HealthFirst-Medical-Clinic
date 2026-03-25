@@ -22,7 +22,7 @@ Be friendly, concise, and professional.
 """
 
 
-def faq_node(state: MessagesState):
-    messages = [{"role": "system", "content": SYSTEM_PROMPT}]+ state["messages"]
+def faq_node(state: AgentState):
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}] + state["messages"]
     response = llm_with_tools.invoke(messages)
     return {"messages": [response]}
