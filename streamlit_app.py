@@ -13,7 +13,7 @@ from graph.workflow import build_workflow, build_faq_only_workflow
 import os
 
 # Set page config
-st.set_page_config(page_title="HealthFirst Medical Clinic MAS", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="AyushLife Care Clinic MAS", page_icon="🏥", layout="wide")
 
 def _extract_text(messages) -> str:
     """Extract text from the last AI message, handling Bedrock's list content format."""
@@ -42,7 +42,7 @@ async def init_graph(mode):
         return build_faq_only_workflow()
 
 # Sidebar configuration
-st.sidebar.title("🏥 Clinic Assistant Settings")
+st.sidebar.title("🏥 AyushLife Care Clinic")
 mode = st.sidebar.selectbox("System Mode", ["FAQ Only", "Full System"])
 user_id = st.sidebar.text_input("User ID", value="demo_user")
 
@@ -62,7 +62,7 @@ if "graph" not in st.session_state or st.session_state.get("current_mode") != mo
         st.session_state.current_mode = mode
 
 # Main UI
-st.title("🏥 HealthFirst Medical Clinic")
+st.title("🏥 AyushLife Care Clinic")
 
 # Check if Chroma DB exists
 if not os.path.exists("./chroma_langchain_db"):

@@ -33,7 +33,7 @@ def run_faq_only():
     config = {"configurable": {"thread_id": thread_id}}
 
     print("=" * 50)
-    print("  HealthFirst Medical Clinic")
+    print("  AyushLife Care Clinic")
     print("  FAQ Agent (multi-turn)")
     print("=" * 50)
     print(f"Thread: {thread_id}")
@@ -65,7 +65,7 @@ def run_full_system():
     thread_id = str(uuid.uuid4())[:8]
 
     print("=" * 50)
-    print("  HealthFirst Medical Clinic")
+    print("  AyushLife Care Clinic")
     print("  Multi-Agent System")
     print("=" * 50)
     print(f"User: {user_id} | Thread: {thread_id}")
