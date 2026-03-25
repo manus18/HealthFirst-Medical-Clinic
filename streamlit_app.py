@@ -13,7 +13,35 @@ from graph.workflow import build_workflow, build_faq_only_workflow
 import os
 
 # Set page config
-st.set_page_config(page_title="AyushLife Care Clinic MAS", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="AyushLife Care Clinic MAS", page_icon="🩺", layout="wide")
+
+# Custom CSS for yellow-orange theme and icons
+st.markdown("""
+    <style>
+    .stApp {
+        background-color: #FFF9F2;
+    }
+    .main .block-container {
+        padding-top: 2rem;
+    }
+    h1 {
+        color: #E67E00;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .stButton>button {
+        background-color: #FF8C00;
+        color: white;
+        border-radius: 10px;
+    }
+    .stChatInputContainer {
+        border-color: #FF8C00;
+    }
+    /* Sidebar styling */
+    section[data-testid="stSidebar"] {
+        background-color: #FFF5E6;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 def _extract_text(messages) -> str:
     """Extract text from the last AI message, handling Bedrock's list content format."""
@@ -42,8 +70,29 @@ async def init_graph(mode):
         return build_faq_only_workflow()
 
 # Sidebar configuration
-st.sidebar.title("🏥 AyushLife Care Clinic")
-mode = st.sidebar.selectbox("System Mode", ["FAQ Only", "Full System"])
+st.sidebar.title("🩺 AyushLife Care Clinic")
+st.sidebar.markdown("---")
+
+# Quick FAQ Section in Sidebar
+st.sidebar.subheader("📋 Frequently Asked Questions")
+with st.sidebar.expander("📍 Location & Hours"):
+    st.markdown("""
+    **Location:** 123 Health Ave, Wellness City
+    **Hours:** Mon-Fri: 8am-8pm | Sat: 9am-4pm
+    """)
+
+with st.sidebar.expander("💳 Insurance & Payment"):
+    st.markdown("""
+    We accept most major insurance providers including BlueCross, Aetna, and Medicare.
+    """)
+
+with st.sidebar.expander("👨‍⚕️ Our Doctors"):
+    st.markdown("""
+    We have 15+ specialists across Cardiology, Pediatrics, and General Practice.
+    """)
+
+st.sidebar.markdown("---")
+mode = st.sidebar.selectbox("⚙️ System Mode", ["FAQ Only", "Full System"])
 user_id = st.sidebar.text_input("User ID", value="demo_user")
 
 if st.sidebar.button("Clear Chat History"):
@@ -62,7 +111,8 @@ if "graph" not in st.session_state or st.session_state.get("current_mode") != mo
         st.session_state.current_mode = mode
 
 # Main UI
-st.title("🏥 AyushLife Care Clinic")
+st.title("🩺 AyushLife Care Clinic 🏥")
+st.markdown("Welcome to the **AyushLife Care** digital assistant. How can we help you today? 💊💉")
 
 # Check if Chroma DB exists
 if not os.path.exists("./chroma_langchain_db"):
