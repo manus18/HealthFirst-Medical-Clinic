@@ -1,7 +1,7 @@
 """
 Booking Agent for MAS Clinic:Node function for appointment via google calender.
 """
-from langgraph.graph import MessagesState
+from agents.state import AgentState
 from config.models import llm
 
 SYSTEM_PROMPT = """You are a booking assistant at HealthFirst Medical Clinic.
