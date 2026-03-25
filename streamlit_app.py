@@ -68,8 +68,6 @@ st.title("🏥 AyushLife Care Clinic")
 if not os.path.exists("./chroma_langchain_db"):
     st.warning("⚠️ Chroma database not found locally. If this is running on Streamlit Cloud, ensure you have ingested data or provided the persistence directory. You can run `python rag/ingest.py` to initialize it.")
 
-st.markdown(f"**Current Session:** User: `{user_id}` | Thread: `{st.session_state.thread_id}` | Mode: `{mode}`")
-
 # Display chat history
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):

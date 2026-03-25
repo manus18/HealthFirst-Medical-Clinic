@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from config.models import llm
 from agents.state import AgentState
 
-SYSTEM_PROMPT = """You are a supervisor routing requests at HealthFirst Medical Clinic.
+SYSTEM_PROMPT = """You are a supervisor routing requests at AyushLife Care Clinic.
  
 Analyze the user's message and route to the appropriate agent:
  
